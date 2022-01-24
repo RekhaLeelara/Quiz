@@ -1,0 +1,98 @@
+*{
+    box-sizing: border-box;
+}
+
+header{
+    display: flex;
+    padding: 1%
+}
+#time{
+float: right;
+}
+
+body{
+    /* width: 100%;*/
+    padding: 5% 10% 0% 10%;
+    
+}
+
+button{
+    background-color: purple;
+    color: white;
+    padding: 10px;
+    text-align: center;
+    cursor: pointer;
+    border-radius: 12px;
+}
+
+#startquiz{
+    margin-left: 45%;
+    margin-top: 30px;
+}
+
+.rectanglebox{
+    width: 100%;
+    height: 500px;
+    border-style: groove;
+    /* background-color: pink; */
+    padding: 2%;
+}
+
+.viewhighscores{
+    margin-right: 70%;
+    color: indigo;
+    text-decoration: none;
+}
+.Questions{
+    margin-left: 30%;
+}
+
+.startline1 {
+    margin-left: 0%;
+}
+
+.startline2{
+    margin-left: 3%;
+}
+
+.startline3{
+    margin-left: 20%;
+}
+
+.quizchallenge{
+    font-size: 30px;
+    font-weight: bold;
+    margin-left: 10%;
+}
+
+.quizPages div{
+    white-space: nowrap;
+}
+
+.quizPages div button{
+    display: inline;
+    padding: 1%;
+}
+/* .rectanglebox div p{
+    margin-left: 300px;
+} */
+
+.initialsPage{
+    margin-left: 40%;
+white-space: nowrap;
+}
+
+.initialsPage a{
+    display: inline-block;
+    padding: 1%;
+}
+
+.initialsPage input{
+    display: inline-block;
+    padding: 1%;
+}
+/* container.appendChild(div).appendChild(p1);
+container.appendChild(div).appendChild(p2);
+container.appendChild(div).appendChild(p3);
+document.body.appendChild(div).appendChild(input);
+container.appendChild(div).appendChild(submit); */
