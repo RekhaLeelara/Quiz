@@ -14,7 +14,7 @@ var q1 = document.createElement("p");
 var q12 = document.createElement("p");
 var q13 = document.createElement("p");
 var stQuiz = document.createElement("button");
-var timer = document.createElement("a");
+var timerEL = document.createElement("a");
 var counter = 50;
 var questionNo = 0;
 var clickedElement = "";
@@ -51,6 +51,8 @@ quizChallenge.classList.add("quizchallenge");
 start()
 
 function start() {
+    counter = 50;
+    questionNo = 0;
     console.log("questionNo: " + questionNo);
     
     header.appendChild(a1);
@@ -61,52 +63,8 @@ function start() {
     Questions.appendChild(q).appendChild(q13);
     Questions.appendChild(stQuiz);
 
-    header.appendChild(timer);
-    timer.textContent = counter;
-
-    stQuiz.addEventListener("click", function (event) {
-
-        $(Questions).hide();
-        $(quizPages).show();
-        setInt = setInterval(function () {
-            if (counter == 1) {
-                clearInterval(setInt);
-                finalScore();
-            }
-            counter--;
-            timer.textContent = counter;
-            if (counter >= 0) {
-                console.log("Counting time" + timer.textContent);
-            }
-            else {
-                finalScore();
-            }
-        }, 1000)
-        localStorage.setItem("option", "pepito");
-        showNextQuestion();
-    });
-
-    quizPages.addEventListener("click", function (event) {
-        clickedElement = event.target.dataset.number;
-        quizAnswer(clickedElement, questionNo);
-        console.log(questionNo);
-
-        console.log("Question No before increment: " + questionNo);
-        if (questionNo == "4") {
-            console.log("hiding a quiz page");
-            $(quizPages).hide();
-            $(initialsPage).show();
-            console.log("clearInterval: "+clearInterval(setInt));
-            finalScore();
-        }
-        else {
-            questionNo++;
-            console.log("Question No after increment: " + questionNo);
-            showNextQuestion();
-        }
-
-    });
-}
+    header.appendChild(timerEL);  
+    console.log("resetting counter: "+timerEL.textContent);
 
 function showNextQuestion() {
     pageQ1.textContent = quizQuestions[questionNo].quizQ;
@@ -123,21 +81,25 @@ function addOption(answerBtn, optionText) {
 }
 
 function finalScore() {
+    console.log("Youre in finalscore page");
+    $(quizPages).hide();
+    $(initialsPage).show();
     p2.textContent = "Your final score is: " + score
     p3.textContent = "Enter initials: "
     submit.textContent = "Submit"
+    // timer.textContent = 0;
+    // clearInterval(setInt);
 
     initialsPage.appendChild(div).appendChild(p2);
     initialsPage.appendChild(div).appendChild(p3);
     document.body.appendChild(div).appendChild(input);
     initialsPage.appendChild(div).appendChild(submit);
 
+    console.log("Value before submit: "+document.getElementById("initials").value);
     submit.addEventListener("click", function (event) {
+        console.log("Value after submit: "+document.getElementById("initials").value);
         initials = document.getElementById("initials").value;
-        console.log(event.target);
-        console.log("getting initials" + initials);
         localStorage.setItem('ini', JSON.stringify(initials));
-        document.getElementById("initials").value="";
         $(initialsPage).hide();
         $(viewHighscorespage).show();
         viewHighScores();
@@ -146,9 +108,7 @@ function finalScore() {
 
 function quizAnswer(clickedElement, questionNo) {
     if (clickedElement == quizQuestions[questionNo].correctans) {
-        console.log("ClickedElement: " + clickedElement + " Correct Ans: " + quizQuestions[questionNo].correctans);
         score = score + 20;
-        console.log("score: " + score);
     }
     else {
         counter = counter - 10;
@@ -156,30 +116,79 @@ function quizAnswer(clickedElement, questionNo) {
 }
 
 function viewHighScores() {
-    var div = document.createElement("div");
+    var div2 = document.createElement("div");
     var highScore = document.createElement("a");
     var scoreList = document.createElement("a");
     var goBack = document.createElement("button");
     var clearHighScores = document.createElement("button");
+    // timer.textContent = 0;
 
     var hs = JSON.parse(localStorage.getItem('ini'));
 
+    document.getElementById("initials").value = "";
     highScore.textContent = "High Scores";
     scoreList.textContent = hs + "-" + score;
     goBack.textContent = "Go back";
     clearHighScores.textContent = "Clear High Scores";
 
-    viewHighscorespage.appendChild(div).appendChild(highScore);
-    viewHighscorespage.appendChild(div).appendChild(scoreList);
-    viewHighscorespage.appendChild(div).appendChild(goBack);
-    viewHighscorespage.appendChild(div).appendChild(clearHighScores);
+    viewHighscorespage.appendChild(div2).appendChild(highScore);
+    viewHighscorespage.appendChild(div2).appendChild(scoreList);
+    viewHighscorespage.appendChild(div2).appendChild(goBack);
+    viewHighscorespage.appendChild(div2).appendChild(clearHighScores);
     console.log("viewHighScores: " + hs);
 
     goBack.addEventListener("click", function (event) {
-        questionNo = 0;
+        console.log("timerEL.textContent: " + timerEL.textContent);
         $(viewHighscorespage).hide();
         $(Questions).show();
         $(header).show();
         start();
     });
 }
+
+function endQuiz(){
+    clearInterval(setInt);
+    timerEL.textContent = 0;
+    finalScore();
+}
+
+stQuiz.addEventListener("click", function (event) {
+
+    $(Questions).hide();
+    $(quizPages).show();
+
+    setInt = setInterval(function () {
+        // Decrement `timeLeft` by 1
+        counter--;
+        // Set the `textContent` of `timerEl` to show the remaining seconds
+        timerEL.textContent = counter;
+        
+      if (counter < 1) {
+        // When `timeLeft` is equal to 1, rename to 'second' instead of 'seconds'
+        endQuiz();
+      }
+  
+    }, 1000)
+    showNextQuestion();
+});
+
+
+quizPages.addEventListener("click", function (event) {
+    clickedElement = event.target.dataset.number;
+    quizAnswer(clickedElement, questionNo);
+    console.log(questionNo);
+
+    console.log("Question No before increment: " + questionNo);
+    if (questionNo === 4) {
+        console.log("hiding a quiz page");
+        // $(quizPages).hide();
+        // $(initialsPage).show();
+        endQuiz();
+    }
+    else {
+        questionNo++;
+        console.log("Question No after increment: " + questionNo);
+        showNextQuestion();
+    }
+
+});
