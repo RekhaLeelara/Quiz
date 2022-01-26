@@ -70,7 +70,7 @@ button{
 }
 
 .quizPages div button{
-    display: inline;
+    display: BLOCK;
     padding: 1%;
 }
 /* .rectanglebox div p{

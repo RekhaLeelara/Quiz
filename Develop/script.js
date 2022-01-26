@@ -31,6 +31,7 @@ input.setAttribute("id", "initials");
 var score = 0;
 
 var submit = document.createElement("button");
+
 var initials = "";
 
 a1.textContent = "View high scores";
@@ -66,6 +67,8 @@ function start() {
     header.appendChild(timerEL);  
     console.log("resetting counter: "+timerEL.textContent);
 
+}
+
 function showNextQuestion() {
     pageQ1.textContent = quizQuestions[questionNo].quizQ;
     quizPages.appendChild(pageQ1div).appendChild(pageQ1);
@@ -90,14 +93,15 @@ function finalScore() {
     // timer.textContent = 0;
     // clearInterval(setInt);
 
+    console.log("before calling the elements");
     initialsPage.appendChild(div).appendChild(p2);
     initialsPage.appendChild(div).appendChild(p3);
     document.body.appendChild(div).appendChild(input);
     initialsPage.appendChild(div).appendChild(submit);
 
-    console.log("Value before submit: "+document.getElementById("initials").value);
+    // console.log("Value before submit: "+document.getElementById("initials").value);
     submit.addEventListener("click", function (event) {
-        console.log("Value after submit: "+document.getElementById("initials").value);
+        // console.log("Value after submit: "+document.getElementById("initials").value);
         initials = document.getElementById("initials").value;
         localStorage.setItem('ini', JSON.stringify(initials));
         $(initialsPage).hide();
@@ -117,14 +121,14 @@ function quizAnswer(clickedElement, questionNo) {
 
 function viewHighScores() {
     var div2 = document.createElement("div");
-    var highScore = document.createElement("a");
-    var scoreList = document.createElement("a");
+    var highScore = document.createElement("p");
+    var scoreList = document.createElement("p");
     var goBack = document.createElement("button");
     var clearHighScores = document.createElement("button");
     // timer.textContent = 0;
 
     var hs = JSON.parse(localStorage.getItem('ini'));
-
+    console.log(hs);
     document.getElementById("initials").value = "";
     highScore.textContent = "High Scores";
     scoreList.textContent = hs + "-" + score;
@@ -135,7 +139,7 @@ function viewHighScores() {
     viewHighscorespage.appendChild(div2).appendChild(scoreList);
     viewHighscorespage.appendChild(div2).appendChild(goBack);
     viewHighscorespage.appendChild(div2).appendChild(clearHighScores);
-    console.log("viewHighScores: " + hs);
+    console.log("viewHighScores: " + score);
 
     goBack.addEventListener("click", function (event) {
         console.log("timerEL.textContent: " + timerEL.textContent);
