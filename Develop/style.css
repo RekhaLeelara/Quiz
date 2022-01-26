@@ -25,8 +25,13 @@ button{
     border-radius: 12px;
 }
 
-#startquiz{
-    margin-left: 45%;
+/* #startquiz{
+    margin-left: 200%;
+    margin-top: 30px;
+} */
+
+.stQuiz{
+    margin-left: 25%;
     margin-top: 30px;
 }
 
@@ -72,6 +77,7 @@ button{
 .quizPages div button{
     display: BLOCK;
     padding: 1%;
+    width: 120px;
 }
 /* .rectanglebox div p{
     margin-left: 300px;

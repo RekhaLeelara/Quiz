@@ -19,6 +19,7 @@ var counter = 50;
 var questionNo = 0;
 var clickedElement = "";
 var setInt;
+var goBack;
 
 //final score variables
 var div = document.createElement("div");
@@ -28,6 +29,15 @@ var p3 = document.createElement("a");
 var input = document.createElement("input");
 input.setAttribute("type", "text");
 input.setAttribute("id", "initials");
+
+//High Score element creation
+var div2 = document.createElement("div");
+var highScore = document.createElement("p");
+var scoreList = document.createElement("p");
+var clearHighScores = document.createElement("button");
+goBack = document.createElement("button");
+
+
 var score = 0;
 
 var submit = document.createElement("button");
@@ -48,6 +58,9 @@ q1.classList.add("startline1");
 q12.classList.add("startline2");
 q13.classList.add("startline3");
 quizChallenge.classList.add("quizchallenge");
+stQuiz.classList.add("stQuiz");
+
+
 
 start()
 
@@ -99,15 +112,6 @@ function finalScore() {
     document.body.appendChild(div).appendChild(input);
     initialsPage.appendChild(div).appendChild(submit);
 
-    // console.log("Value before submit: "+document.getElementById("initials").value);
-    submit.addEventListener("click", function (event) {
-        // console.log("Value after submit: "+document.getElementById("initials").value);
-        initials = document.getElementById("initials").value;
-        localStorage.setItem('ini', JSON.stringify(initials));
-        $(initialsPage).hide();
-        $(viewHighscorespage).show();
-        viewHighScores();
-    });
 }
 
 function quizAnswer(clickedElement, questionNo) {
@@ -120,18 +124,15 @@ function quizAnswer(clickedElement, questionNo) {
 }
 
 function viewHighScores() {
-    var div2 = document.createElement("div");
-    var highScore = document.createElement("p");
-    var scoreList = document.createElement("p");
-    var goBack = document.createElement("button");
-    var clearHighScores = document.createElement("button");
+
     // timer.textContent = 0;
 
-    var hs = JSON.parse(localStorage.getItem('ini'));
-    console.log(hs);
+    // var ini = JSON.parse(localStorage.getItem('Initials'));
+    // var score = JSON.parse(localStorage.getItem('Score'));
+
     document.getElementById("initials").value = "";
     highScore.textContent = "High Scores";
-    scoreList.textContent = hs + "-" + score;
+    scoreList.textContent = JSON.parse(localStorage.getItem('Initials')) + "-" + JSON.parse(localStorage.getItem('Score'));
     goBack.textContent = "Go back";
     clearHighScores.textContent = "Clear High Scores";
 
@@ -139,15 +140,8 @@ function viewHighScores() {
     viewHighscorespage.appendChild(div2).appendChild(scoreList);
     viewHighscorespage.appendChild(div2).appendChild(goBack);
     viewHighscorespage.appendChild(div2).appendChild(clearHighScores);
-    console.log("viewHighScores: " + score);
-
-    goBack.addEventListener("click", function (event) {
-        console.log("timerEL.textContent: " + timerEL.textContent);
-        $(viewHighscorespage).hide();
-        $(Questions).show();
-        $(header).show();
-        start();
-    });
+    console.log("viewHighScores: " + JSON.parse(localStorage.getItem('Score')));
+    console.log("initials: " +JSON.parse(localStorage.getItem('Initials')));
 }
 
 function endQuiz(){
@@ -191,8 +185,28 @@ quizPages.addEventListener("click", function (event) {
     }
     else {
         questionNo++;
-        console.log("Question No after increment: " + questionNo);
+        console.log("Question No after in   crement: " + questionNo);
         showNextQuestion();
     }
 
 });
+
+submit.addEventListener("click", function (event) {
+    // console.log("Value after submit: "+document.getElementById("initials").value);
+    initials = document.getElementById("initials").value;
+    localStorage.setItem('Initials', JSON.stringify(initials));
+    localStorage.setItem('Score', JSON.stringify(score));
+    $(initialsPage).hide();
+    $(viewHighscorespage).show();
+    viewHighScores();
+});
+
+
+goBack.addEventListener("click", function (event) {
+    console.log("timerEL.textContent: " + timerEL.textContent);
+    $(viewHighscorespage).hide();
+    $(Questions).show();
+    $(header).show();
+    start();
+});
+
