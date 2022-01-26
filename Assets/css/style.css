@@ -2,20 +2,23 @@
     box-sizing: border-box;
 }
 
+/* Header formatting */
 header{
     display: flex;
     padding: 1%
 }
+/* Header formatting */
 #time{
 float: right;
 }
 
+/* Adding padding to the body*/
 body{
-    /* width: 100%;*/
     padding: 5% 10% 0% 10%;
     
 }
 
+/* Formatting all buttons */
 button{
     background-color: purple;
     color: white;
@@ -25,64 +28,57 @@ button{
     border-radius: 12px;
 }
 
-/* #startquiz{
-    margin-left: 200%;
-    margin-top: 30px;
-} */
-
+/* Start Quiz button formatting to the center*/
 .stQuiz{
     margin-left: 25%;
     margin-top: 30px;
 }
 
+/* common box to display the contents */
 .rectanglebox{
     width: 100%;
     height: 500px;
     border-style: groove;
-    /* background-color: pink; */
     padding: 2%;
 }
 
+/* View scores page formatting */
 .viewhighscores{
     margin-right: 70%;
     color: indigo;
     text-decoration: none;
 }
+
+/* All questions page formatting */
 .Questions{
     margin-left: 30%;
 }
 
-.startline1 {
+/* paragraph contents in start quiz page */
+.startline1, .startline2, .startline3 {
     margin-left: 0%;
 }
 
-.startline2{
-    margin-left: 3%;
-}
-
-.startline3{
-    margin-left: 20%;
-}
-
+/* Formatting the start page header in bold */
 .quizchallenge{
     font-size: 30px;
     font-weight: bold;
     margin-left: 10%;
 }
 
+/* quiz page answer options formatting */
 .quizPages div{
     white-space: nowrap;
 }
 
+/* quiz page answer options formatting */
 .quizPages div button{
     display: BLOCK;
     padding: 1%;
     width: 120px;
 }
-/* .rectanglebox div p{
-    margin-left: 300px;
-} */
 
+/* initials page formatting */
 .initialsPage{
     margin-left: 40%;
 white-space: nowrap;
@@ -97,8 +93,3 @@ white-space: nowrap;
     display: inline-block;
     padding: 1%;
 }
-/* container.appendChild(div).appendChild(p1);
-container.appendChild(div).appendChild(p2);
-container.appendChild(div).appendChild(p3);
-document.body.appendChild(div).appendChild(input);
-container.appendChild(div).appendChild(submit); */
