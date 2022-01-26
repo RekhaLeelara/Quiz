@@ -76,7 +76,7 @@ function start() {
     Questions.appendChild(q).appendChild(q12);
     Questions.appendChild(q).appendChild(q13);
     Questions.appendChild(stQuiz);
-
+    timerEL.textContent = counter
     header.appendChild(timerEL);  
     console.log("resetting counter: "+timerEL.textContent);
 
